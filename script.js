@@ -786,7 +786,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
 
   /* =========================
-     GSAP ANIMATIONS
+     GSAP ANIMATIONS — FIXED (FASTER TRIGGER)
   ========================= */
 
   if (
@@ -811,6 +811,7 @@ document.addEventListener("DOMContentLoaded", function () {
     });
 
 
+    /* ===== REVEAL — start: "top 75%" (pehle 85% tha) ===== */
     gsap.utils
       .toArray(".reveal")
       .forEach(function (element) {
@@ -832,7 +833,7 @@ document.addEventListener("DOMContentLoaded", function () {
             scrollTrigger: {
 
               trigger: element,
-              start: "top 85%",
+              start: "top 75%", // <-- FIXED: pehle trigger hoga
               once: true
 
             }
@@ -843,6 +844,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
 
+    /* ===== REVEAL-LEFT — start: "top 75%" ===== */
     gsap.utils
       .toArray(".reveal-left")
       .forEach(function (element) {
@@ -864,7 +866,7 @@ document.addEventListener("DOMContentLoaded", function () {
             scrollTrigger: {
 
               trigger: element,
-              start: "top 85%",
+              start: "top 75%", // <-- FIXED
               once: true
 
             }
@@ -875,6 +877,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
 
+    /* ===== REVEAL-RIGHT — start: "top 75%" ===== */
     gsap.utils
       .toArray(".reveal-right")
       .forEach(function (element) {
@@ -896,7 +899,7 @@ document.addEventListener("DOMContentLoaded", function () {
             scrollTrigger: {
 
               trigger: element,
-              start: "top 85%",
+              start: "top 75%", // <-- FIXED
               once: true
 
             }
@@ -907,6 +910,7 @@ document.addEventListener("DOMContentLoaded", function () {
       });
 
 
+    /* ===== REVEAL-SCALE — start: "top 75%" ===== */
     gsap.utils
       .toArray(".reveal-scale")
       .forEach(function (element) {
@@ -928,7 +932,7 @@ document.addEventListener("DOMContentLoaded", function () {
             scrollTrigger: {
 
               trigger: element,
-              start: "top 85%",
+              start: "top 75%", // <-- FIXED
               once: true
 
             }
@@ -941,6 +945,11 @@ document.addEventListener("DOMContentLoaded", function () {
   }
 
 });
+
+
+/* =========================
+   CONTACT FORM SUBMIT
+========================= */
 
 const contactForm = document.getElementById("contactForm");
 
