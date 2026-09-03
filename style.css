@@ -663,3 +663,448 @@ select:-webkit-autofill:focus {
     font-size: 18px;
   }
 }
+
+
+/* ===== IMPROVED NAVBAR ===== */
+
+/* Navbar background with blur */
+.navbar-bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 10, 10, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid rgba(197, 244, 103, 0.05);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Navbar glow effect */
+.navbar-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 0%, rgba(197, 244, 103, 0.06) 0%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.5s ease;
+  pointer-events: none;
+}
+
+#navbar.scrolled .navbar-glow {
+  opacity: 1;
+}
+
+/* Logo glow ring */
+.logo-link {
+  position: relative;
+}
+
+.logo-glow {
+  position: absolute;
+  inset: -8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(197, 244, 103, 0.15) 0%, transparent 70%);
+  opacity: 0;
+  transform: scale(0.8);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.logo-link:hover .logo-glow {
+  opacity: 1;
+  transform: scale(1.2);
+}
+
+.logo-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(197, 244, 103, 0);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.logo-link:hover .logo-ring {
+  border-color: rgba(197, 244, 103, 0.3);
+  transform: scale(1.1);
+}
+
+/* Nav links with before/after - IMPROVED */
+.nav-link {
+  position: relative;
+  padding: 4px 0;
+  transition: color 0.3s ease;
+  cursor: pointer;
+}
+
+/* Underline glow effect */
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #C5F467, transparent);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  transform: translateX(-50%);
+  border-radius: 2px;
+  box-shadow: 0 0 12px rgba(197, 244, 103, 0.3);
+}
+
+.nav-link:hover::after {
+  width: 100%;
+}
+
+.nav-link::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: radial-gradient(circle, rgba(197, 244, 103, 0.06) 0%, transparent 70%);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.nav-link:hover::before {
+  width: 60px;
+  height: 60px;
+}
+
+/* ===== ACTIVE LINK STYLES ===== */
+.nav-link.active {
+  color: #FAFAFA !important;
+}
+
+.nav-link.active::after {
+  width: 100%;
+  background: linear-gradient(90deg, #C5F467, #A8D44F, #C5F467);
+  box-shadow: 0 0 20px rgba(197, 244, 103, 0.4);
+}
+
+.nav-link.active::before {
+  width: 60px;
+  height: 60px;
+  background: radial-gradient(circle, rgba(197, 244, 103, 0.1) 0%, transparent 70%);
+}
+
+/* Active link indicator dot */
+.nav-link.active .nav-dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.nav-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  background: #C5F467;
+  border-radius: 50%;
+  margin-left: 4px;
+  opacity: 0;
+  transform: scale(0);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 0 12px rgba(197, 244, 103, 0.4);
+  vertical-align: middle;
+}
+
+.nav-link.active .nav-dot {
+  opacity: 1;
+  transform: scale(1);
+}
+
+/* CTA Button - Clean version (removed hover effects) */
+.cta-btn {
+  position: relative;
+  border-radius: 8px;
+  background: #C5F467;
+  color: #0A0A0A;
+  font-weight: 600;
+  transition: background 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+}
+
+.cta-btn:hover {
+  background: #B0E04A;
+  transform: translateY(-1px);
+}
+
+.cta-btn:active {
+  transform: translateY(0px);
+}
+
+/* Mobile menu button ring */
+.menu-ring {
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid rgba(197, 244, 103, 0);
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+#menuToggle:hover .menu-ring {
+  border-color: rgba(197, 244, 103, 0.3);
+  transform: scale(1.1);
+}
+
+/* Mobile menu background */
+.mobile-menu {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: rgba(10, 10, 10, 0.98);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.mobile-menu.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.mobile-menu-bg {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(ellipse at 50% 50%, rgba(197, 244, 103, 0.03) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Mobile nav links with numbering */
+.mobile-nav-link {
+  position: relative;
+  padding: 8px 0;
+  transition: all 0.3s ease;
+}
+
+.mobile-link-number {
+  position: absolute;
+  left: -40px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(197, 244, 103, 0.3);
+  letter-spacing: 0.1em;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Inter', sans-serif;
+}
+
+.mobile-nav-link:hover .mobile-link-number {
+  opacity: 1;
+  color: #C5F467;
+  transform: translateY(-50%) translateX(-4px);
+}
+
+.mobile-link-line {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 2px;
+  background: linear-gradient(90deg, #C5F467, transparent);
+  transition: width 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 2px;
+}
+
+.mobile-nav-link:hover .mobile-link-line {
+  width: 100%;
+}
+
+/* Navbar scroll state */
+#navbar.scrolled .navbar-bg {
+  background: rgba(10, 10, 10, 0.9);
+  border-bottom-color: rgba(197, 244, 103, 0.1);
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 1024px) {
+  .mobile-link-number {
+    display: none;
+  }
+}
+
+@media (max-width: 640px) {
+  .navbar-bg {
+    background: rgba(10, 10, 10, 0.85);
+  }
+}
+
+/* ===== SEND MESSAGE BUTTON ===== */
+
+.send-btn {
+  position: relative;
+  padding: 18px 28px;
+  border: none;
+  border-radius: 14px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #0A0A0A;
+  cursor: pointer;
+  outline: none;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  background: transparent;
+  font-family: 'Inter', sans-serif;
+  width: 100%;
+  min-height: 60px;
+}
+
+/* Button background with gradient */
+.send-btn-bg {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #C5F467, #A8D44F, #B8E85A);
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 
+    0 4px 20px rgba(197, 244, 103, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+/* Button hover state */
+.send-btn:hover .send-btn-bg {
+  background: linear-gradient(135deg, #B8E85A, #9AD044, #B0E04A);
+  box-shadow: 
+    0 8px 40px rgba(197, 244, 103, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  transform: scale(1.02);
+}
+
+/* Button active state */
+.send-btn:active .send-btn-bg {
+  transform: scale(0.98);
+  box-shadow: 0 2px 10px rgba(197, 244, 103, 0.2);
+}
+
+/* Shine effect on hover */
+.send-btn-shine {
+  position: absolute;
+  inset: 0;
+  border-radius: 14px;
+  background: linear-gradient(
+    105deg,
+    transparent 0%,
+    rgba(255, 255, 255, 0.15) 30%,
+    rgba(255, 255, 255, 0.25) 50%,
+    rgba(255, 255, 255, 0.15) 70%,
+    transparent 100%
+  );
+  transform: translateX(-100%) rotate(15deg);
+  transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+  opacity: 0;
+}
+
+.send-btn:hover .send-btn-shine {
+  transform: translateX(100%) rotate(15deg);
+  opacity: 1;
+}
+
+/* Button text */
+.send-btn-text {
+  position: relative;
+  z-index: 10;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #0A0A0A;
+  transition: all 0.3s ease;
+}
+
+/* Button icon */
+.send-btn-icon {
+  position: relative;
+  z-index: 10;
+  color: #0A0A0A;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hover effects on text and icon */
+.send-btn:hover .send-btn-text {
+  letter-spacing: 0.15em;
+}
+
+.send-btn:hover .send-btn-icon {
+  transform: translateX(4px) translateY(-2px);
+}
+
+/* Pulsing glow animation */
+.send-btn::after {
+  content: '';
+  position: absolute;
+  inset: -3px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, rgba(197, 244, 103, 0.3), rgba(168, 212, 79, 0.1));
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  z-index: -1;
+  filter: blur(8px);
+}
+
+.send-btn:hover::after {
+  opacity: 1;
+  animation: sendPulse 2s ease-in-out infinite;
+}
+
+/* Pulse animation */
+@keyframes sendPulse {
+  0%, 100% {
+    transform: scale(1);
+    opacity: 0.5;
+  }
+  50% {
+    transform: scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* ===== DARK THEME VARIANT ===== */
+.send-btn-dark {
+  color: #FAFAFA;
+}
+
+.send-btn-dark .send-btn-bg {
+  background: linear-gradient(135deg, #1A1A1A, #2A2A2A);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+}
+
+.send-btn-dark:hover .send-btn-bg {
+  background: linear-gradient(135deg, #222, #333);
+  box-shadow: 0 8px 40px rgba(0, 0, 0, 0.4);
+}
+
+.send-btn-dark .send-btn-text,
+.send-btn-dark .send-btn-icon {
+  color: #FAFAFA;
+}
+
+/* ===== RESPONSIVE ===== */
+@media (max-width: 640px) {
+  .send-btn {
+    padding: 16px 20px;
+    min-height: 54px;
+    font-size: 12px;
+  }
+  
+  .send-btn-text {
+    font-size: 12px;
+  }
+  
+  .send-btn-icon {
+    width: 16px;
+    height: 16px;
+  }
+}
+
+

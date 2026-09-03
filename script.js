@@ -943,18 +943,45 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 const contactForm = document.getElementById("contactForm");
-const formStatus = document.getElementById("formStatus");
 
 if (contactForm) {
   contactForm.addEventListener("submit", (e) => {
     e.preventDefault();
-    formStatus.textContent = "Thank you! Your message has been received.";
-    formStatus.className = "text-center text-sm font-medium mt-4 text-green-400 block";
+    
+    // Show toast notification
+    const toast = document.getElementById('toast');
+    const toastMsg = document.getElementById('toastMsg');
+    
+    if (toast && toastMsg) {
+      toastMsg.textContent = 'Thank you! Your message has been received.';
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 4000);
+    }
+    
     contactForm.reset();
-    setTimeout(() => { formStatus.className = "hidden"; }, 5000);
+    
+    // Reset select dropdown
+    const selectTrigger = document.getElementById('projectTypeTrigger');
+    const selectWrapper = document.getElementById('projectTypeWrapper');
+    const placeholder = selectTrigger ? selectTrigger.querySelector('.select2-placeholder') : null;
+    const valueDisplay = selectTrigger ? selectTrigger.querySelector('.select2-value') : null;
+    
+    if (selectTrigger && selectWrapper && placeholder && valueDisplay) {
+      placeholder.style.display = 'inline';
+      valueDisplay.style.display = 'none';
+      selectWrapper.classList.remove('has-value');
+      
+      // Reset hidden input
+      const hiddenInput = document.getElementById('projectType');
+      if (hiddenInput) {
+        hiddenInput.value = '';
+      }
+    }
   });
-} 
-
+}
 
 /* =========================
    CUSTOM SELECT2 DROPDOWN
@@ -1049,3 +1076,59 @@ if (contactForm) {
   });
 
 })();
+
+/* =========================
+   ACTIVE NAV LINK HIGHLIGHT
+========================= */
+
+function setActiveNavLink() {
+  const sections = ['hero', 'about', 'skills', 'portfolio', 'services', 'contact'];
+  const navLinks = document.querySelectorAll('.nav-link');
+  let currentSection = 'hero';
+  
+  // Find which section is currently in view
+  sections.forEach(sectionId => {
+    const section = document.getElementById(sectionId);
+    if (section) {
+      const rect = section.getBoundingClientRect();
+      // If section is in viewport (with some offset)
+      if (rect.top <= 150 && rect.bottom >= 150) {
+        currentSection = sectionId;
+      }
+    }
+  });
+  
+  // Update active class on nav links
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    const navData = link.getAttribute('data-nav');
+    if (navData === currentSection) {
+      link.classList.add('active');
+    }
+  });
+}
+
+// Run on scroll with throttling
+let isScrolling = false;
+window.addEventListener('scroll', function() {
+  if (!isScrolling) {
+    window.requestAnimationFrame(function() {
+      setActiveNavLink();
+      isScrolling = false;
+    });
+    isScrolling = true;
+  }
+});
+
+// Run on load
+setActiveNavLink();
+
+// Run after page load
+window.addEventListener('load', function() {
+  setActiveNavLink();
+});
+
+// Also run when hash changes (manual navigation)
+window.addEventListener('hashchange', function() {
+  setTimeout(setActiveNavLink, 100);
+});
